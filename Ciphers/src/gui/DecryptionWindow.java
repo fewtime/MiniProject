@@ -1,6 +1,10 @@
 package gui;
 
+import ciphers.CaesarCipher;
+import ciphers.Cipher;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 
 /**
@@ -11,10 +15,12 @@ import javax.swing.*;
 class DecryptionWindow extends JFrame {
     final private JTextArea textBox;
     final private JTextField detailField;
+    private final String cipherText;
 
     DecryptionWindow(JTextArea textBox, JTextField detailField) {
         this.textBox = textBox;
         this.detailField = detailField;
+        cipherText = textBox.getText().trim().replaceAll("\\W", "");
 
         init();
     }
@@ -49,6 +55,19 @@ class DecryptionWindow extends JFrame {
         // Create 'Submit' button.
         final JButton submitBtn = new JButton("Submit");
         panel.add(submitBtn);
+
+        // 'Submit' button's listener.
+        submitBtn.addActionListener((ActionEvent actionEvent) -> {
+            int chosenCipher = protocolBox.getSelectedIndex();
+            Cipher cipher = null;
+
+            int key = Integer.parseInt(keyField.getText());
+            String plainText = cipher != null ? cipher.decrypt(cipherText, key) : null;
+            textBox.setText(plainText);
+            detailField.setText("Decrypted text using the " + (cipher != null ? cipher.getNAME() : null) +
+                    " with key " + key);
+            dispose();
+        });
 
         // Display windows
         this.add(panel);

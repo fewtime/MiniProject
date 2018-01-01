@@ -1,6 +1,10 @@
 package gui;
 
+import ciphers.CaesarCipher;
+import ciphers.Cipher;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by cowlog on 18-1-1.
@@ -11,10 +15,12 @@ class EncryptionWindow extends JFrame {
 
     final private JTextArea textBox;
     final private JTextField detailsField;
+    private String plainText;
 
     EncryptionWindow(JTextArea textBox, JTextField detailsField) {
         this.textBox = textBox;
         this.detailsField = detailsField;
+        plainText = textBox.getText().trim().replaceAll("\\W", "");
 
         init();
     }
@@ -47,9 +53,34 @@ class EncryptionWindow extends JFrame {
         keyPanel.add(keyField);
         panel.add(keyPanel);
 
+        // Generate button's listener
+        generateButton.addActionListener((ActionEvent actionEvent) -> {
+            int chosenCipher = protocolBox.getSelectedIndex();
+            Cipher cipher = null;
+            if (chosenCipher != -1) {
+                if (chosenCipher == 0) {
+                    cipher = new CaesarCipher();
+                }
+            }
+            keyField.setText(Integer.toString(cipher != null ? cipher.generateKey() : 0));
+        });
+
         // Create 'Submit' button.
         final JButton submitButton = new JButton("Submit");
         panel.add(submitButton);
+
+        // 'Submit' button's listener.
+        submitButton.addActionListener((ActionEvent actionEvent) -> {
+            int chosenCipher = protocolBox.getSelectedIndex();
+            Cipher cipher = null;
+            int key = Integer.parseInt(keyField.getText());
+
+            String cipherText = cipher != null ? cipher.encrypt(plainText, key) : null;
+            textBox.setText(cipherText);
+            detailsField.setText("Encrypted text using the " + (cipher != null ? cipher.getNAME() : null) +
+                    " with key " + key);
+            dispose();
+        });
 
         // Display windows
         this.add(panel);
