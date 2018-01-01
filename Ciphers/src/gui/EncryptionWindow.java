@@ -56,13 +56,8 @@ class EncryptionWindow extends JFrame {
         // Generate button's listener
         generateButton.addActionListener((ActionEvent actionEvent) -> {
             int chosenCipher = protocolBox.getSelectedIndex();
-            Cipher cipher = null;
-            if (chosenCipher != -1) {
-                if (chosenCipher == 0) {
-                    cipher = new CaesarCipher();
-                }
-            }
-            keyField.setText(Integer.toString(cipher != null ? cipher.generateKey() : 0));
+            Cipher cipher = (Cipher) Cipher.factory(chosenCipher, plainText.length());
+            keyField.setText(cipher != null ? cipher.generateKey() : "NULL");
         });
 
         // Create 'Submit' button.
@@ -72,7 +67,7 @@ class EncryptionWindow extends JFrame {
         // 'Submit' button's listener.
         submitButton.addActionListener((ActionEvent actionEvent) -> {
             int chosenCipher = protocolBox.getSelectedIndex();
-            int key = Integer.parseInt(keyField.getText());
+            String key = keyField.getText();
             Cipher cipher = (Cipher) Cipher.factory(chosenCipher, plainText.length());
 
             String cipherText = cipher != null ? cipher.encrypt(plainText, key) : null;

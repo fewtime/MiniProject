@@ -20,7 +20,7 @@ public class CaesarCipher implements Cipher {
             'Y', 'Z'
     };
 
-    public CaesarCipher() {
+    CaesarCipher() {
         charMap = new HashMap<>();
         for (int i = 0; i < encryptionTable.length; ++i) {
             charMap.put(encryptionTable[i], i);
@@ -28,14 +28,14 @@ public class CaesarCipher implements Cipher {
     }
 
     // Return an integer between 0 - 25.
-    public int generateKey() {
+    public String generateKey() {
         SecureRandom secureRandom = new SecureRandom();
         try {
             secureRandom = SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return secureRandom.nextInt(26);
+        return Integer.toString(secureRandom.nextInt(26));
     }
 
     /*
@@ -43,11 +43,12 @@ public class CaesarCipher implements Cipher {
      * Formula: (m(i) + key) mod 26.
      * Return: cipher text or null if an error occurred.
      */
-    public String encrypt(String plainText, int key) {
+    public String encrypt(String plainText, String key) {
+        int ikey = Integer.parseInt(key);
         StringBuilder encryptedText = new StringBuilder();
 
         // Check the key's and plainText's validation.
-        if (key < 0 || key > 25 || plainText.length() <= 0) {
+        if (ikey < 0 || ikey > 25 || plainText.length() <= 0) {
             return null;
         }
 
@@ -62,7 +63,7 @@ public class CaesarCipher implements Cipher {
 
         // Encrypt
         for (int i = 0; i < plainText.length(); ++i) {
-            int encryptedCharIndex = (charMap.get(plainText.charAt(i)) + key) % 26;
+            int encryptedCharIndex = (charMap.get(plainText.charAt(i)) + ikey) % 26;
             encryptedText.append(encryptionTable[encryptedCharIndex]);
         }
 
@@ -74,11 +75,12 @@ public class CaesarCipher implements Cipher {
      * Formula: (c(i) - key) mod 26.
      * Return: plain text or null if an error occurred.
      */
-    public String decrypt(String cipherText, int key) {
+    public String decrypt(String cipherText, String key) {
+        int ikey = Integer.parseInt(key);
         StringBuilder decryptedText = new StringBuilder();
 
         // Check the key's and cipher text's validation.
-        if (key < 0 || key > 26 || cipherText.length() <= 0) {
+        if (ikey < 0 || ikey > 26 || cipherText.length() <= 0) {
             return null;
         }
 
@@ -93,7 +95,7 @@ public class CaesarCipher implements Cipher {
 
         // Decrypt
         for (int i = 0; i < cipherText.length(); ++i) {
-            int decryptedCharIndex = (charMap.get(cipherText.charAt(i)) - key) % 26;
+            int decryptedCharIndex = (charMap.get(cipherText.charAt(i)) - ikey) % 26;
             if (decryptedCharIndex < 0) {
                 decryptedCharIndex += 26;
             }

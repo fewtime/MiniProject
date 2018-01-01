@@ -5,9 +5,9 @@ package ciphers;
  * Cipher Interface
  */
 public interface Cipher {
-    int generateKey();
-    String encrypt(String plainText, int key);
-    String decrypt(String cipherText, int key);
+    String generateKey();
+    String encrypt(String plainText, String key);
+    String decrypt(String cipherText, String key);
     String getNAME();
 
     static Object factory(int k, int plainTextLen) {

@@ -61,7 +61,7 @@ class DecryptionWindow extends JFrame {
             int chosenCipher = protocolBox.getSelectedIndex();
             Cipher cipher = (Cipher) Cipher.factory(chosenCipher, cipherText.length());
 
-            int key = Integer.parseInt(keyField.getText());
+            String key = keyField.getText();
             String plainText = cipher != null ? cipher.decrypt(cipherText, key) : null;
             textBox.setText(plainText);
             detailField.setText("Decrypted text using the " + (cipher != null ? cipher.getNAME() : null) +
