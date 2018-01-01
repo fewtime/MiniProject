@@ -3,7 +3,6 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
     public MainWindow() {
@@ -56,6 +55,9 @@ public class MainWindow extends JFrame {
             DecryptionWindow w = new DecryptionWindow(textArea, detailsField);
             w.setVisible(true);
         });
+
+        // Clear button
+        clearBtn.addActionListener((ActionEvent actionEvent) -> textArea.setText("") );
 
         // Display panel
         this.add(panel);
