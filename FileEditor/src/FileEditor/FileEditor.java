@@ -3,11 +3,15 @@ package FileEditor;
 import WordCount.WordCount;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
+import java.util.ArrayList;
 
 public class FileEditor extends JFrame {
     // File path text field
@@ -28,6 +32,14 @@ public class FileEditor extends JFrame {
     // Count message area
     private JLabel countMsg;
 
+    // 'Highlight' button
+    private JButton hlBtn;
+
+    // Cancel 'Highlight' button
+    private JButton cancelHlBtn;
+
+    // Highlight text field
+    private JTextField hlField;
 
     public FileEditor() {
         this.init();
@@ -67,9 +79,40 @@ public class FileEditor extends JFrame {
 
         openBtn.addActionListener((ActionEvent actionEvent) -> openFileDialog());
 
-        JPanel upPanel = new JPanel();
+        hlField = new JTextField(40);
+
+        hlBtn = new JButton("Highlight");
+        hlBtn.addActionListener((ActionEvent actionEvent) -> {
+            Highlighter highLighter = editArea.getHighlighter();
+            DefaultHighlighter.DefaultHighlightPainter p = new DefaultHighlighter.DefaultHighlightPainter(Color.lightGray);
+            String content = editArea.getText();
+            String keyWord = hlField.getText();
+            int pos = 0;
+            while ((pos = content.indexOf(keyWord, pos)) >= 0) {
+                try {
+                    highLighter.addHighlight(pos, pos + keyWord.length(), p);
+                    pos += keyWord.length();
+                } catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        cancelHlBtn = new JButton("Cancel highlight");
+        cancelHlBtn.addActionListener((ActionEvent actionEvent) -> {
+            Highlighter highlighter = editArea.getHighlighter();
+            Highlighter.Highlight[] highlighters = highlighter.getHighlights();
+            for (Highlighter.Highlight h : highlighters) {
+                highlighter.removeHighlight(h);
+            }
+        });
+
+        JPanel upPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         upPanel.add(filePathField);
         upPanel.add(openBtn);
+        upPanel.add(hlField);
+        upPanel.add(hlBtn);
+        upPanel.add(cancelHlBtn);
 
         this.add(upPanel, BorderLayout.NORTH);
 
@@ -100,6 +143,7 @@ public class FileEditor extends JFrame {
         this.add(southPanel, BorderLayout.SOUTH);
 
         // Display windows
+        this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
