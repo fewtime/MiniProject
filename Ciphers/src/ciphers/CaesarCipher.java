@@ -35,7 +35,7 @@ public class CaesarCipher implements Cipher {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return Integer.toString(secureRandom.nextInt(26));
+        return Integer.toString(secureRandom.nextInt(encryptionTable.length));
     }
 
     /*
@@ -63,7 +63,7 @@ public class CaesarCipher implements Cipher {
 
         // Encrypt
         for (int i = 0; i < plainText.length(); ++i) {
-            int encryptedCharIndex = (charMap.get(plainText.charAt(i)) + ikey) % 26;
+            int encryptedCharIndex = (charMap.get(plainText.charAt(i)) + ikey) % encryptionTable.length;
             encryptedText.append(encryptionTable[encryptedCharIndex]);
         }
 
@@ -95,9 +95,9 @@ public class CaesarCipher implements Cipher {
 
         // Decrypt
         for (int i = 0; i < cipherText.length(); ++i) {
-            int decryptedCharIndex = (charMap.get(cipherText.charAt(i)) - ikey) % 26;
+            int decryptedCharIndex = (charMap.get(cipherText.charAt(i)) - ikey) % encryptionTable.length;
             if (decryptedCharIndex < 0) {
-                decryptedCharIndex += 26;
+                decryptedCharIndex += encryptionTable.length;
             }
             decryptedText.append(encryptionTable[decryptedCharIndex]);
         }
