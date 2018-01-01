@@ -61,6 +61,12 @@ class DecryptionWindow extends JFrame {
             int chosenCipher = protocolBox.getSelectedIndex();
             Cipher cipher = null;
 
+            if (chosenCipher != -1) {
+               if (chosenCipher == 0) {
+                   cipher = new CaesarCipher();
+               }
+            }
+
             int key = Integer.parseInt(keyField.getText());
             String plainText = cipher != null ? cipher.decrypt(cipherText, key) : null;
             textBox.setText(plainText);

@@ -75,6 +75,12 @@ class EncryptionWindow extends JFrame {
             Cipher cipher = null;
             int key = Integer.parseInt(keyField.getText());
 
+            if (chosenCipher != -1) {
+                if (chosenCipher == 0) {
+                    cipher = new CaesarCipher();
+                }
+            }
+
             String cipherText = cipher != null ? cipher.encrypt(plainText, key) : null;
             textBox.setText(cipherText);
             detailsField.setText("Encrypted text using the " + (cipher != null ? cipher.getNAME() : null) +
