@@ -52,6 +52,8 @@ public class FileEditor extends JFrame {
         // Create a south panel, to save file
         saveBtn = new JButton("Save");
 
+        saveBtn.addActionListener((ActionEvent actionEvent) -> saveFile());
+
         JPanel southPanel = new JPanel();
         southPanel.add(saveBtn);
         this.add(southPanel, BorderLayout.SOUTH);
@@ -59,6 +61,33 @@ public class FileEditor extends JFrame {
         // Display windows
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    private void saveFile() {
+        FileDialog fd = new FileDialog(this, "Save File");
+
+        // Set the file suffix
+        fd.setFile("untitled.txt");
+
+        // Set "Save" model
+        fd.setMode(FileDialog.SAVE);
+        fd.setVisible(true);
+
+        // Get file name
+        String fileName = fd.getFile();
+
+        // Get current directory
+        String dir = fd.getDirectory();
+
+        // Create a target file based on directory and file name
+        File newFile = new File(dir + File.separator + fileName);
+        try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(newFile)))) {
+            String str = editArea.getText();
+            pw.println(str);
+            pw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void openFile(String absolutePath) {
