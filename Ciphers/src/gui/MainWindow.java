@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
     public MainWindow() {
@@ -40,6 +42,13 @@ public class MainWindow extends JFrame {
         buttonPanel.add(decryptBtn);
         buttonPanel.add(clearBtn);
         panel.add(buttonPanel);
+
+        // Button listener
+        // Encryption button
+        encryptBtn.addActionListener((ActionEvent actionEvent) -> {
+            EncryptionWindow w = new EncryptionWindow(textArea, detailsField);
+            w.setVisible(true);
+        });
 
         // Display panel
         this.add(panel);
