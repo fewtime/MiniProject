@@ -104,20 +104,24 @@ public class FileEditor extends JFrame {
     }
 
     private void saveFile() {
+        String currentFilePath = filePathField.getText();
+        String fileName = currentFilePath.substring(currentFilePath.lastIndexOf('/'), currentFilePath.length());
+        String dir = currentFilePath.substring(0, currentFilePath.lastIndexOf('/'));
         FileDialog fd = new FileDialog(this, "Save File");
 
-        // Set the file suffix
-        fd.setFile("untitled.txt");
+        // Set the file name and dir in file dialog
+        fd.setDirectory(dir);
+        fd.setFile(fileName);
 
         // Set "Save" model
         fd.setMode(FileDialog.SAVE);
         fd.setVisible(true);
 
         // Get file name
-        String fileName = fd.getFile();
+        fileName = fd.getFile();
 
         // Get current directory
-        String dir = fd.getDirectory();
+        dir = fd.getDirectory();
 
         // Create a target file based on directory and file name
         File newFile = new File(dir + File.separator + fileName);
