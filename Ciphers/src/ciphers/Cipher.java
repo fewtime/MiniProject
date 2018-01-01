@@ -15,7 +15,7 @@ public interface Cipher {
         switch (k) {
             case 0: cipher = new CaesarCipher(); break;
             case 1: cipher = new VernamCipher(plainTextLen); break;
-//            case 2: cipher = new VigenereCipher(plainTextLen); break;
+            case 2: cipher = new VigenereCipher(plainTextLen); break;
             default: break;
         }
         return cipher;
