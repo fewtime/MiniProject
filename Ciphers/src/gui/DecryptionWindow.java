@@ -59,13 +59,7 @@ class DecryptionWindow extends JFrame {
         // 'Submit' button's listener.
         submitBtn.addActionListener((ActionEvent actionEvent) -> {
             int chosenCipher = protocolBox.getSelectedIndex();
-            Cipher cipher = null;
-
-            if (chosenCipher != -1) {
-               if (chosenCipher == 0) {
-                   cipher = new CaesarCipher();
-               }
-            }
+            Cipher cipher = (Cipher) Cipher.factory(chosenCipher, cipherText.length());
 
             int key = Integer.parseInt(keyField.getText());
             String plainText = cipher != null ? cipher.decrypt(cipherText, key) : null;
