@@ -1,0 +1,11 @@
+* 密码短信
+
+** 概述
+
+可以将数据加密解密，并能将其发送给朋友。
+
+** 使用算法
+
++ [[https://en.wikipedia.org/wiki/Caesar_cipher][恺撒密码 (Caesar cipher)]]
++ [[https://en.wikipedia.org/wiki/Gilbert_Vernam#The_Vernam_cipher][维尔南密码 (Vernam cipher)]]
++ [[https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher][维吉尼亚密码 (Vigenere cipher)]]
