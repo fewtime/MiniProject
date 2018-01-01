@@ -1,5 +1,7 @@
 package FileEditor;
 
+import WordCount.WordCount;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,12 @@ public class FileEditor extends JFrame {
 
     // 'Open' button
     private JButton openBtn;
+
+    // 'Count' button
+    private JButton countBtn;
+
+    // Count message area
+    private JLabel countMsg;
 
 
     public FileEditor() {
@@ -70,13 +78,23 @@ public class FileEditor extends JFrame {
 
         this.add(scrollPane);
 
-        // Create a south panel, to save file
+        // Create a south panel, to save file and count characters.
         saveBtn = new JButton("Save");
-
         saveBtn.addActionListener((ActionEvent actionEvent) -> saveFile());
+
+        countBtn = new JButton("Count");
+        countMsg = new JLabel("");
+        countBtn.addActionListener((ActionEvent actionEvent) -> {
+            WordCount wd = new WordCount(editArea.getText());
+            String info = "Count: Chinese: " + wd.getChCnt() + " English: " + wd.getEngCnt()
+                    + " Number: " + wd.getNumCnt() + " Special: " + wd.getSpecCnt();
+            countMsg.setText(info);
+        });
 
         JPanel southPanel = new JPanel();
         southPanel.add(saveBtn);
+        southPanel.add(countBtn);
+        southPanel.add(countMsg);
         this.add(southPanel, BorderLayout.SOUTH);
 
         // Display windows
