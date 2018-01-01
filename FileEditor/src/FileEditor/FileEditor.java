@@ -153,6 +153,7 @@ public class FileEditor extends JFrame {
     }
 
     private void openFile(String absolutePath) {
+        filePathField.setText(absolutePath);
         File file = new File(absolutePath);
 
         if (!(file.exists())) {
