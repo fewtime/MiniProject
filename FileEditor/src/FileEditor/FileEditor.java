@@ -34,6 +34,8 @@ public class FileEditor extends JFrame {
     }
 
     private void init() {
+        setUIFont (new javax.swing.plaf.FontUIResource("Source Hans SC",Font.PLAIN,16));
+
         this.setTitle("Editor");
 
         // Component size
@@ -171,6 +173,16 @@ public class FileEditor extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static void setUIFont (javax.swing.plaf.FontUIResource f){
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get (key);
+            if (value instanceof javax.swing.plaf.FontUIResource)
+                UIManager.put (key, f);
         }
     }
 }
