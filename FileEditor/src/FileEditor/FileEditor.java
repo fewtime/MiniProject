@@ -3,6 +3,8 @@ package FileEditor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 
 public class FileEditor extends JFrame {
@@ -31,6 +33,26 @@ public class FileEditor extends JFrame {
 
         // Create a north panel, to locale file
         filePathField = new JTextField(40);
+        filePathField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
+                    openFile(filePathField.getText().replaceAll("//", "\\\\"));
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+
+            }
+
+        });
+
         openBtn = new JButton("Browse");
 
         openBtn.addActionListener((ActionEvent actionEvent) ->
