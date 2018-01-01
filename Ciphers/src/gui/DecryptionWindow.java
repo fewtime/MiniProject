@@ -20,7 +20,7 @@ class DecryptionWindow extends JFrame {
     DecryptionWindow(JTextArea textBox, JTextField detailField) {
         this.textBox = textBox;
         this.detailField = detailField;
-        cipherText = textBox.getText().trim().replaceAll("\\W", "");
+        cipherText = textBox.getText();
 
         init();
     }
