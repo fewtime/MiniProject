@@ -44,9 +44,16 @@ public class MainWindow extends JFrame {
         panel.add(buttonPanel);
 
         // Button listener
+
         // Encryption button
         encryptBtn.addActionListener((ActionEvent actionEvent) -> {
             EncryptionWindow w = new EncryptionWindow(textArea, detailsField);
+            w.setVisible(true);
+        });
+
+        // Decryption button
+        decryptBtn.addActionListener((ActionEvent actionEvent) -> {
+            DecryptionWindow w = new DecryptionWindow(textArea, detailsField);
             w.setVisible(true);
         });
 
