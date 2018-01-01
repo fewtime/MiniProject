@@ -55,8 +55,7 @@ public class FileEditor extends JFrame {
 
         openBtn = new JButton("Browse");
 
-        openBtn.addActionListener((ActionEvent actionEvent) ->
-            openFile(filePathField.getText().replaceAll("//", "\\\\")));
+        openBtn.addActionListener((ActionEvent actionEvent) -> openFileDialog());
 
         JPanel upPanel = new JPanel();
         upPanel.add(filePathField);
@@ -83,6 +82,25 @@ public class FileEditor extends JFrame {
         // Display windows
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    private void openFileDialog() {
+        FileDialog fd = new FileDialog(this, "Open File");
+
+        // Set the file suffix
+        fd.setFile("untitled.txt");
+
+        // Set "Load" model
+        fd.setMode(FileDialog.LOAD);
+        fd.setVisible(true);
+
+        // Get file name
+        String fileName = fd.getFile();
+
+        // Get current directory
+        String dir = fd.getDirectory();
+
+        openFile(dir + File.separator + fileName);
     }
 
     private void saveFile() {
