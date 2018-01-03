@@ -1,7 +1,10 @@
 package gui;
 
+import generator.Generator;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by cowlog on 18-1-4.
@@ -32,6 +35,12 @@ public class MainWindow extends JFrame {
         // Declare a 'Generate' button
         final JButton generateBtn = new JButton("Generate");
         panel.add(generateBtn);
+
+        // Button listener
+        generateBtn.addActionListener((ActionEvent actionEvent) -> {
+            Generator generator = new Generator(5, 5);
+            textArea.setText(generator.get());
+        });
 
 
         this.add(panel);
