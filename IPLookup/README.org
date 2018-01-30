@@ -1,0 +1,8 @@
+* IP注册地查询
+** 功能介绍
+输入ip地址，查询该ip是在哪注册的。
+** 说明
+
+使用了 [[http://ip-api.com/][ip-api]] 网站提供的 API ，可以返回该 IP 地址的所属国家，城市等信息。
+
+使用了 [[https://github.com/google/gson][gson]] 对 API 返回的 JSON 文件进行解析。
