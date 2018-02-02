@@ -2,10 +2,15 @@ package com.ScreenShot.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by cowlog on 18-2-2.
+ * Implement Main window gui
  */
+
 public class MainWindow extends JFrame{
     public MainWindow() {
         this.init();
@@ -19,6 +24,20 @@ public class MainWindow extends JFrame{
 
         final JButton button = new JButton("ScreenShot");
         panel.add(button);
+        final JTextArea textArea = new JTextArea("Double click to save, right click to quit");
+        panel.add(textArea);
+
+        button.addActionListener((ActionEvent actionEvent) -> {
+            ScreenFrame sf = new ScreenFrame();
+            sf.setVisible(true);
+        });
+
+        addWindowFocusListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                System.exit(0);
+            }
+        });
 
         this.add(panel);
 
