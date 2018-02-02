@@ -1,0 +1,8 @@
+* 获取当前天气
+** 描述
+获取获取某个地区当前的天气情况。
+
+** 说明
+使用了 [[http://www.sojson.com][sojson]] 的天气 API 接口。
+具体使用：
+=http://www.sojson.com/open/api/weather/json.shtml?city={cityname}=， 其中， ={cityname}= 为城市名字（中文）。
