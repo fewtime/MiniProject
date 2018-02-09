@@ -11,7 +11,6 @@ import java.util.Date;
 
 /*
 航空/酒店预订系统——创建一套预订航班或酒店的预订系统。不同的航班座位和酒店房间收费不一样。譬如头等舱要比经济舱贵。带阁楼的套间要更贵些。记录下何时有空房可供预订。
-学生成绩管理器——记录一个班级的学生（创建一个Student类，记录他们的名字、平均分和考试分数）和他们的成绩等级。根据学生的测验和作业的分数计算出平均分和成绩等级。复杂一点可以将数据画在贝尔曲线上。
 银行账户管家——创建一个名为“Account”的抽象类，有三个为“CheckingAccount”、“SavingsAccount”和“BusinessAccount”的子类。通过类似ATM的程序来管理这些账户的借贷。
 */
 public class Test {
@@ -64,5 +63,17 @@ public class Test {
             }
         }
         l.list();
+        // 学生成绩管理器
+        System.out.println("ScoreNote: ");
+        ScoreNote sn = new ScoreNote();
+        for (int i = 1; i <=5; ++i) {
+            Student s = new Student(Integer.toString(i));
+            for (int j = 10; j <=30; j += 10) {
+                Subject sb = new Subject(Integer.toString(j), j + 50);
+                s.add(sb);
+            }
+            sn.add(s);
+        }
+        sn.list();
     }
 }
