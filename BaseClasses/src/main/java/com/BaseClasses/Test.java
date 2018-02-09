@@ -10,7 +10,6 @@ import java.util.Date;
  */
 
 /*
-航空/酒店预订系统——创建一套预订航班或酒店的预订系统。不同的航班座位和酒店房间收费不一样。譬如头等舱要比经济舱贵。带阁楼的套间要更贵些。记录下何时有空房可供预订。
 银行账户管家——创建一个名为“Account”的抽象类，有三个为“CheckingAccount”、“SavingsAccount”和“BusinessAccount”的子类。通过类似ATM的程序来管理这些账户的借贷。
 */
 public class Test {
@@ -75,5 +74,14 @@ public class Test {
             sn.add(s);
         }
         sn.list();
+
+        //  酒店预订系统
+        System.out.println("Hotel: ");
+        Hotel h = new Hotel();
+        for (int i = 1; i <=5; ++i) {
+            Room r = new Room(i, i % 2, false, i * 10);
+            h.add(r);
+        }
+        h.list();
     }
 }
