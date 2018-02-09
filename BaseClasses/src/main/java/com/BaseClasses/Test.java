@@ -9,9 +9,6 @@ import java.util.Date;
  * Test class.
  */
 
-/*
-银行账户管家——创建一个名为“Account”的抽象类，有三个为“CheckingAccount”、“SavingsAccount”和“BusinessAccount”的子类。通过类似ATM的程序来管理这些账户的借贷。
-*/
 public class Test {
     public static void main(String[] args) {
         // 产品库存管理
@@ -83,5 +80,11 @@ public class Test {
             h.add(r);
         }
         h.list();
+        CheckingAccount ca = new CheckingAccount("ca", 10);
+        SavingAccount sa = new SavingAccount("sa", 10);
+        BusinessAccount ba = new BusinessAccount("ba", 10);
+        ca.print();
+        sa.print();
+        ba.print();
     }
 }
